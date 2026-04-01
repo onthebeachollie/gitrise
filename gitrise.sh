@@ -5,7 +5,7 @@
 # shellcheck disable=SC2120
 # disables "foo references arguments, but none are ever passed."
 
-VERSION="0.10.0"
+VERSION="0.11.0"
 APP_NAME="Gitrise"
 STATUS_POLLING_INTERVAL=30
 
@@ -196,7 +196,7 @@ function trigger_build() {
     if [ -z "${TESTING_ENABLED}" ]; then 
         local command="curl --silent -X POST https://api.bitrise.io/v0.1/apps/$PROJECT_SLUG/builds \
                 --data '$(generate_build_payload)' \
-                --header 'Accept: application/json' --header 'Authorization: $ACCESS_TOKEN'"
+                --header 'Accept: application/json' --header 'Content-Type: application/json' --header 'Authorization: $ACCESS_TOKEN'"
         response=$(eval "${command}") 
     else
         response=$(<./testdata/"$1"_build_trigger_response.json)
